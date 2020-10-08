@@ -26,7 +26,7 @@ public class UserDaoImpl implements UserDao {
             if (transaction != null) {
                 transaction.rollback();
             }
-            throw new DataProcessingException("Can't insert User entity", e);
+            throw new DataProcessingException("Can't insert User entity " + user, e);
         } finally {
             if (session != null) {
                 session.close();
@@ -40,7 +40,7 @@ public class UserDaoImpl implements UserDao {
             Query<User> query = session.createQuery(
                     "FROM User WHERE email = :email", User.class)
                     .setParameter("email", email);
-            return Optional.ofNullable(query.uniqueResult());
+            return query.uniqueResultOptional();
         }
     }
 }

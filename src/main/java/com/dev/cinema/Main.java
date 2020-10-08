@@ -1,7 +1,6 @@
 package com.dev.cinema;
 
 import com.dev.cinema.exceptions.AuthenticationException;
-import com.dev.cinema.exceptions.DataProcessingException;
 import com.dev.cinema.lib.Injector;
 import com.dev.cinema.model.CinemaHall;
 import com.dev.cinema.model.Movie;
@@ -64,11 +63,10 @@ public class Main {
 
         try {
             authenticationService.register("bob@gmail.com", "1");
-            authenticationService.register("bob@gmail.com", "1");
             User bob = authenticationService.login("bob@gmail.com", "1");
             System.out.println(bob);
             authenticationService.login("bob@gmail.com", "asdas");
-        } catch (AuthenticationException | DataProcessingException e) {
+        } catch (AuthenticationException e) {
             System.out.println(e.getMessage());
         }
     }
