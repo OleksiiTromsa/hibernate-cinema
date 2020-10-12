@@ -76,5 +76,6 @@ public class Main {
                 (ShoppingCartService) injector.getInstance(ShoppingCartService.class);
         cartService.addSession(matrixInImaxToday, bob);
         ShoppingCart cart = cartService.getByUser(bob);
+        System.out.println(cart);
     }
 }
