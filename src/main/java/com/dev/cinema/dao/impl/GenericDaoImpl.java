@@ -19,7 +19,8 @@ public class GenericDaoImpl<T> implements GenericDao<T> {
             transaction = session.beginTransaction();
             session.save(item);
             transaction.commit();
-            logger.info("Entity " + item + " successfully added to the DB");
+            logger.info(item.getClass().getSimpleName() + " entity " + item
+                    + " successfully added to the DB");
             return item;
         } catch (Exception e) {
             if (transaction != null) {
