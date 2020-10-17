@@ -17,20 +17,22 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
+import org.apache.log4j.Logger;
 
 public class Main {
     private static Injector injector = Injector.getInstance("com.dev.cinema");
+    private static final Logger logger = Logger.getLogger(Main.class);
 
     public static void main(String[] args) {
         MovieService movieService = (MovieService) injector.getInstance(MovieService.class);
 
-        movieService.getAll().forEach(System.out::println);
+        movieService.getAll().forEach(logger::info);
         Movie fastAndFurious = new Movie("Fast and Furious");
         Movie matrix = new Movie("Matrix");
         fastAndFurious = movieService.add(fastAndFurious);
         matrix = movieService.add(matrix);
 
-        movieService.getAll().forEach(System.out::println);
+        movieService.getAll().forEach(logger::info);
 
         CinemaHall imax = new CinemaHall(100, "Imax");
         CinemaHall vip = new CinemaHall(10, "Vip");
@@ -39,7 +41,7 @@ public class Main {
                 (CinemaHallService) injector.getInstance(CinemaHallService.class);
         imax = cinemaHallService.add(imax);
         vip = cinemaHallService.add(vip);
-        cinemaHallService.getAll().forEach(System.out::println);
+        cinemaHallService.getAll().forEach(logger::info);
 
         MovieSessionService movieSessionService =
                 (MovieSessionService) injector.getInstance(MovieSessionService.class);
@@ -59,7 +61,7 @@ public class Main {
 
         List<MovieSession> movieSessions = movieSessionService.findAvailableSessions(matrix.getId(),
                 LocalDate.of(2020, 10, 7));
-        movieSessions.forEach(System.out::println);
+        movieSessions.forEach(logger::info);
 
         AuthenticationService authenticationService =
                 (AuthenticationService) injector.getInstance(AuthenticationService.class);
@@ -68,20 +70,19 @@ public class Main {
         try {
             authenticationService.register("bob@gmail.com", "1");
             bob = authenticationService.login("bob@gmail.com", "1");
-            System.out.println(bob);
         } catch (AuthenticationException e) {
-            System.out.println(e.getMessage());
+            logger.info(e.getMessage());
         }
 
         ShoppingCartService cartService =
                 (ShoppingCartService) injector.getInstance(ShoppingCartService.class);
         cartService.addSession(matrixInImaxToday, bob);
         ShoppingCart cart = cartService.getByUser(bob);
-        System.out.println(cart);
+        logger.info(cart);
 
         OrderService orderService = (OrderService) injector.getInstance(OrderService.class);
         orderService.completeOrder(cart.getTickets(), bob);
-        System.out.println(orderService.getOrderHistory(bob));
-        System.out.println(cartService.getByUser(bob));
+        logger.info(orderService.getOrderHistory(bob));
+        logger.info(cartService.getByUser(bob));
     }
 }
