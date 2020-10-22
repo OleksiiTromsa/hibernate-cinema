@@ -1,7 +1,7 @@
 package com.dev.cinema;
 
+import com.dev.cinema.config.AppConfig;
 import com.dev.cinema.exceptions.AuthenticationException;
-import com.dev.cinema.lib.Injector;
 import com.dev.cinema.model.CinemaHall;
 import com.dev.cinema.model.Movie;
 import com.dev.cinema.model.MovieSession;
@@ -18,13 +18,15 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 import org.apache.log4j.Logger;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class Main {
-    private static Injector injector = Injector.getInstance("com.dev.cinema");
+    public static final AnnotationConfigApplicationContext context =
+            new AnnotationConfigApplicationContext(AppConfig.class);
     private static final Logger logger = Logger.getLogger(Main.class);
 
     public static void main(String[] args) {
-        MovieService movieService = (MovieService) injector.getInstance(MovieService.class);
+        MovieService movieService = context.getBean(MovieService.class);
 
         movieService.getAll().forEach(logger::info);
         Movie fastAndFurious = new Movie("Fast and Furious");
@@ -37,14 +39,12 @@ public class Main {
         CinemaHall imax = new CinemaHall(100, "Imax");
         CinemaHall vip = new CinemaHall(10, "Vip");
 
-        CinemaHallService cinemaHallService =
-                (CinemaHallService) injector.getInstance(CinemaHallService.class);
+        CinemaHallService cinemaHallService = context.getBean(CinemaHallService.class);
         imax = cinemaHallService.add(imax);
         vip = cinemaHallService.add(vip);
         cinemaHallService.getAll().forEach(logger::info);
 
-        MovieSessionService movieSessionService =
-                (MovieSessionService) injector.getInstance(MovieSessionService.class);
+        MovieSessionService movieSessionService = context.getBean(MovieSessionService.class);
 
         LocalDate dateToday = LocalDate.of(2020, 10, 7);
         LocalDate dateTomorrow = LocalDate.of(2020, 10, 8);
@@ -63,8 +63,7 @@ public class Main {
                 LocalDate.of(2020, 10, 7));
         movieSessions.forEach(logger::info);
 
-        AuthenticationService authenticationService =
-                (AuthenticationService) injector.getInstance(AuthenticationService.class);
+        AuthenticationService authenticationService = context.getBean(AuthenticationService.class);
 
         User bob = new User();
         try {
@@ -74,13 +73,12 @@ public class Main {
             logger.info(e.getMessage());
         }
 
-        ShoppingCartService cartService =
-                (ShoppingCartService) injector.getInstance(ShoppingCartService.class);
+        ShoppingCartService cartService = context.getBean(ShoppingCartService.class);
         cartService.addSession(matrixInImaxToday, bob);
         ShoppingCart cart = cartService.getByUser(bob);
         logger.info(cart);
 
-        OrderService orderService = (OrderService) injector.getInstance(OrderService.class);
+        OrderService orderService = context.getBean(OrderService.class);
         orderService.completeOrder(cart.getTickets(), bob);
         logger.info(orderService.getOrderHistory(bob));
         logger.info(cartService.getByUser(bob));
