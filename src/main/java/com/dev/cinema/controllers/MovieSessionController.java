@@ -28,7 +28,7 @@ public class MovieSessionController {
 
     @PostMapping
     public void add(@RequestBody MovieSessionRequestDto dto) {
-        service.add(mapper.mapMovieSessionRequestDtoToMovieSession(dto));
+        service.add(mapper.mapDtoToMovieSession(dto));
     }
 
     @GetMapping("/available")
@@ -36,7 +36,7 @@ public class MovieSessionController {
             @RequestParam Long movieId,
             @RequestParam @DateTimeFormat(pattern = "dd.MM.yyyy") LocalDate date) {
         return service.findAvailableSessions(movieId, date).stream()
-                .map(mapper::mapMovieSessionToMovieSessionResponseDto)
+                .map(mapper::mapMovieSessionToDto)
                 .collect(Collectors.toList());
     }
 }
