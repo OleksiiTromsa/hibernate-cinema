@@ -21,4 +21,11 @@ public class MovieDaoImpl extends GenericDaoImpl<Movie> implements MovieDao {
             return getAllMoviesQuery.getResultList();
         }
     }
+
+    @Override
+    public Movie getById(Long id) {
+        try (Session session = sessionFactory.openSession()) {
+            return session.get(Movie.class, id);
+        }
+    }
 }

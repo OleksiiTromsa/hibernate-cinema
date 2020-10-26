@@ -20,4 +20,11 @@ public class CinemaHallDaoImpl extends GenericDaoImpl<CinemaHall>
             return session.createQuery("from CinemaHall ", CinemaHall.class).getResultList();
         }
     }
+
+    @Override
+    public CinemaHall getById(Long id) {
+        try (Session session = sessionFactory.openSession()) {
+            return session.get(CinemaHall.class, id);
+        }
+    }
 }
