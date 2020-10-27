@@ -23,4 +23,11 @@ public class UserDaoImpl extends GenericDaoImpl<User> implements UserDao {
             return query.uniqueResultOptional();
         }
     }
+
+    @Override
+    public User getById(Long id) {
+        try (Session session = sessionFactory.openSession()) {
+            return session.get(User.class, id);
+        }
+    }
 }

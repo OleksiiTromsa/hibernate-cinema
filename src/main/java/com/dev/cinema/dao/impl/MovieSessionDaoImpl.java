@@ -31,4 +31,11 @@ public class MovieSessionDaoImpl extends GenericDaoImpl<MovieSession>
             .getResultList();
         }
     }
+
+    @Override
+    public MovieSession getById(Long id) {
+        try (Session session = sessionFactory.openSession()) {
+            return session.get(MovieSession.class, id);
+        }
+    }
 }
