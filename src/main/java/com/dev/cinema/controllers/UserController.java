@@ -24,6 +24,6 @@ public class UserController {
         return service.findByEmail(email)
                 .map(mapper::userToDto)
                 .orElseThrow(() ->
-                        new RuntimeException("No order with email " + email));
+                        new RuntimeException("No user with email " + email));
     }
 }

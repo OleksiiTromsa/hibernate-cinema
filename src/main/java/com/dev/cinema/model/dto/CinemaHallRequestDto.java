@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class CinemaHallRequestDto {
-    private int capacity;
+    private Integer capacity;
     private String description;
 }
