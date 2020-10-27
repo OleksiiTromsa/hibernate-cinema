@@ -23,6 +23,7 @@ public class UserController {
     public UserResponseDto getByEmail(@RequestParam String email) {
         return service.findByEmail(email)
                 .map(mapper::userToDto)
-                .orElseThrow();
+                .orElseThrow(() ->
+                        new RuntimeException("No order with email " + email));
     }
 }
