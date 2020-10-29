@@ -3,6 +3,7 @@ package com.dev.cinema.dao.impl;
 import com.dev.cinema.dao.MovieDao;
 import com.dev.cinema.model.Movie;
 import java.util.List;
+import java.util.Optional;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -23,9 +24,9 @@ public class MovieDaoImpl extends GenericDaoImpl<Movie> implements MovieDao {
     }
 
     @Override
-    public Movie getById(Long id) {
+    public Optional<Movie> getById(Long id) {
         try (Session session = sessionFactory.openSession()) {
-            return session.get(Movie.class, id);
+            return Optional.of(session.get(Movie.class, id));
         }
     }
 }

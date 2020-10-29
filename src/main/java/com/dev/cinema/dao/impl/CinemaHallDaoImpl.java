@@ -3,6 +3,7 @@ package com.dev.cinema.dao.impl;
 import com.dev.cinema.dao.CinemaHallDao;
 import com.dev.cinema.model.CinemaHall;
 import java.util.List;
+import java.util.Optional;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
@@ -22,9 +23,9 @@ public class CinemaHallDaoImpl extends GenericDaoImpl<CinemaHall>
     }
 
     @Override
-    public CinemaHall getById(Long id) {
+    public Optional<CinemaHall> getById(Long id) {
         try (Session session = sessionFactory.openSession()) {
-            return session.get(CinemaHall.class, id);
+            return Optional.of(session.get(CinemaHall.class, id));
         }
     }
 }

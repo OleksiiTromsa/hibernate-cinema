@@ -25,9 +25,9 @@ public class UserDaoImpl extends GenericDaoImpl<User> implements UserDao {
     }
 
     @Override
-    public User getById(Long id) {
+    public Optional<User> getById(Long id) {
         try (Session session = sessionFactory.openSession()) {
-            return session.get(User.class, id);
+            return Optional.of(session.get(User.class, id));
         }
     }
 }

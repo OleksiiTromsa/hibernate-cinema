@@ -5,6 +5,7 @@ import com.dev.cinema.model.MovieSession;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Optional;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
@@ -33,9 +34,9 @@ public class MovieSessionDaoImpl extends GenericDaoImpl<MovieSession>
     }
 
     @Override
-    public MovieSession getById(Long id) {
+    public Optional<MovieSession> getById(Long id) {
         try (Session session = sessionFactory.openSession()) {
-            return session.get(MovieSession.class, id);
+            return Optional.of(session.get(MovieSession.class, id));
         }
     }
 }
