@@ -15,7 +15,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/registration")
-    public void register(@RequestBody UserRequestDto movieDto) {
-        service.register(movieDto.getEmail(), movieDto.getPassword());
+    public void register(@RequestBody UserRequestDto dto) {
+        service.register(dto.getEmail(), dto.getPassword());
     }
 }
