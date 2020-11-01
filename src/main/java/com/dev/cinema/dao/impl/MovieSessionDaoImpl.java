@@ -36,7 +36,7 @@ public class MovieSessionDaoImpl extends GenericDaoImpl<MovieSession>
     @Override
     public Optional<MovieSession> getById(Long id) {
         try (Session session = sessionFactory.openSession()) {
-            return Optional.of(session.get(MovieSession.class, id));
+            return Optional.ofNullable(session.get(MovieSession.class, id));
         }
     }
 }
