@@ -26,7 +26,7 @@ public class MovieDaoImpl extends GenericDaoImpl<Movie> implements MovieDao {
     @Override
     public Optional<Movie> getById(Long id) {
         try (Session session = sessionFactory.openSession()) {
-            return Optional.of(session.get(Movie.class, id));
+            return Optional.ofNullable(session.get(Movie.class, id));
         }
     }
 }

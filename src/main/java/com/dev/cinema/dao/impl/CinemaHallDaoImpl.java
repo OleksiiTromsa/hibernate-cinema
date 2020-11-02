@@ -25,7 +25,7 @@ public class CinemaHallDaoImpl extends GenericDaoImpl<CinemaHall>
     @Override
     public Optional<CinemaHall> getById(Long id) {
         try (Session session = sessionFactory.openSession()) {
-            return Optional.of(session.get(CinemaHall.class, id));
+            return Optional.ofNullable(session.get(CinemaHall.class, id));
         }
     }
 }
