@@ -1,7 +1,7 @@
 package com.dev.cinema.model.dto;
 
-import com.dev.cinema.validation.EmailValidation;
-import com.dev.cinema.validation.PasswordValidation;
+import com.dev.cinema.security.validation.EmailValidation;
+import com.dev.cinema.security.validation.PasswordValidation;
 import lombok.Data;
 
 @Data
