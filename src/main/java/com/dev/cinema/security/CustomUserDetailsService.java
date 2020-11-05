@@ -18,8 +18,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) {
         com.dev.cinema.model.User user = userService.findByEmail(email);
-        UserBuilder builder = null;
-        builder = User.withUsername(email);
+        UserBuilder builder = User.withUsername(email);
         builder.password(user.getPassword());
         String[] roles = user.getRoles().stream()
                 .map(r -> r.getRoleName().toString())
