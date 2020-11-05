@@ -1,4 +1,4 @@
-package com.dev.cinema.validation;
+package com.dev.cinema.security.validation;
 
 import com.dev.cinema.model.dto.UserRequestDto;
 import javax.validation.ConstraintValidator;

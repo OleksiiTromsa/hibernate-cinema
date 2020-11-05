@@ -1,4 +1,4 @@
-package com.dev.cinema.validation;
+package com.dev.cinema.security.validation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
